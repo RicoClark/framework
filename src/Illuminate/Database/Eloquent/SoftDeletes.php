@@ -135,7 +135,9 @@ trait SoftDeletes
      */
     public function trashed()
     {
-        return ! is_null($this->{$this->getDeletedAtColumn()});
+        $deletedAt = $this->{$this->getDeletedAtColumn()};
+
+        return null !== $deletedAt && Carbon::now() >= $deletedAt;
     }
 
     /**
